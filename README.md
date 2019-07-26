@@ -121,3 +121,39 @@ The following modules are available with the corresponding actions:
   debug:
     msg: "{{ okta_saml_app.json }}"
 ```
+
+
+#### Jira Search Module
+
+Still in beta
+
+Missing Proper Issue Array and field custom or native field capability
+
+The default filter in jira is 4 and stand for all open issues
+
+The filter can be changed depending on the saved seach
+
+The filter id appears in at the en of the link when a search result is selected https://jira/browse/EXAM?filter=4
+
+
+```
+- name: Get Jira Issue
+  jira_search:
+      uri: "{{ domain }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+  register: issue
+
+- name: Get Jira Issue
+  jira_search:
+      uri: "{{ domain }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      filter: 4
+  register: issue
+
+- name: Print Jira Issues
+  debug:
+    msg: "{{ item.fields }}"
+  with_items: "{{ issue.jira.issues }}"
+```

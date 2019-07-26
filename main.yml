@@ -138,3 +138,16 @@
         organization: "{{ organization }}"
         api_key: "{{ api_key }}"
         id: "{{ okta_user.json.id }}"
+
+    - name: Get Jira Issue
+      jira_search:
+          uri: "{{ domain }}"
+          username: "{{ username }}"
+          password: "{{ password }}"
+          filter: 4
+      register: issue
+
+    - name: Print Jira Issues
+      debug:
+        msg: "{{ item.fields }}"
+      with_items: "{{ issue.jira.issues }}"
